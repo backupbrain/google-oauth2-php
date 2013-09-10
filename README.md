@@ -1,5 +1,5 @@
 Google OAuth 2 Client PHP App
-#############################
+=============================
 This code is a very simple PHP implementation for Google's OAuth 2.0 API service.
 
 It is intended as a complement to my tutorial:
