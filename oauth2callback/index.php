@@ -45,7 +45,7 @@ if(isset($_GET['code'])) {
     $request->send();
 
 	// decode the incoming string as JSON
-    $responseObj = json_decode($request->getResponse());
+    $responseObj = json_decode($request->getHttpResponse());
 
 	// Tada: we have an access token!
     echo "OAuth2 server provided access token: " . $responseObj->access_token;

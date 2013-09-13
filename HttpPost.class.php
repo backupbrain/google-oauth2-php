@@ -41,9 +41,9 @@ class HttpPost {
 	public function __construct($url) {
 		$this->url = $url;
 		$this->ch = curl_init( $this->url );
-		curl_setopt( $this->ch, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt( $this->ch, CURLOPT_HEADER, 0);
-		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt( $this->ch, CURLOPT_FOLLOWLOCATION, false );
+		curl_setopt( $this->ch, CURLOPT_HEADER, false );
+		curl_setopt( $this->ch, CURLOPT_RETURNTRANSFER, true );
 	}
 	
 	/**
@@ -60,9 +60,10 @@ class HttpPost {
 	 * @param params an associative array of data pairs
 	 */
 	public function setPostData($params) {
-		$this->postString = http_build_query($params);
-		curl_setopt( $this->ch, CURLOPT_POST, 1);
-		curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $this->postString);
+		// http_build_query encodes URLs, which breaks POST data
+		$this->postString = rawurldecode(http_build_query( $params ));
+		curl_setopt( $this->ch, CURLOPT_POST, true );
+		curl_setopt ( $this->ch, CURLOPT_POSTFIELDS, $this->postString );
 	}
 	
 	/**
